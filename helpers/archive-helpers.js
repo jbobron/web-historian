@@ -9,6 +9,7 @@ var _ = require('underscore');
  * customize it in any way you wish.
  */
 
+// don't understand this.....
 exports.paths = {
   'siteAssets' : path.join(__dirname, '../web/public'),
   'archivedSites' : path.join(__dirname, '../archives/sites'),
@@ -43,5 +44,5 @@ exports.isURLArchived = function(){
 
 exports.downloadUrls = function(){
   // I think this is a GET request to the servers specified in sites.txt
-  // not sure how that data is handled, asssuming we utilize the fs module to add those sites HTML to our file system 
+  // not sure how that data is handled, asssuming we utilize the fs module to add those sites HTML to our file system
 };
