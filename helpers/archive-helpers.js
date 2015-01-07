@@ -26,16 +26,22 @@ exports.initialize = function(pathsObj){
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(){
+  // reads list of Urls from sites.txt
 };
 
 exports.isUrlInList = function(){
+  // returns true or false depending on whether passed in url is in sites.txt
 };
 
 exports.addUrlToList = function(){
+  // adds Url to sites.txt
 };
 
 exports.isURLArchived = function(){
+  // checks to see if the Url's HTML is archived ( this is different from just checking to see if the url string is stored in a file somewhere )
 };
 
 exports.downloadUrls = function(){
+  // I think this is a GET request to the servers specified in sites.txt
+  // not sure how that data is handled, asssuming we utilize the fs module to add those sites HTML to our file system 
 };
