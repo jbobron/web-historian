@@ -9,18 +9,28 @@ var fs = require('fs');
 exports.handleRequest = function (req, res) {
   var statusCode;
 
-  archive.downloadUrl("www.google.com", function(data){
+
+  // archive.downloadUrl("www.google.com", function(data){
     // if( data ){
       // console.log('data added')
     // }else{
       // console.log('data not added')
     // }
+  // })
+  archive.addUrlToList("www.yahoo.com", function(err, data){
+    if(err) console.log("error")
+    console.log(data)
+
+  })
+  archive.addUrlToList("www.google.com", function(err, data){
+    if(err) console.log("error")
+    console.log(data)
+
   })
 
 
-
-  // archive.isURLArchived('www.yahoo.com', function(data){
-  //   if ( data === 'www.yahoo.com' ) {
+  // archive.isURLArchived('www.google.com', function(data){
+  //   if ( data === 'www.google.com' ) {
   //     // serve up my page
   //     console.log('found it');
   //   } else {

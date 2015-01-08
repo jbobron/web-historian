@@ -38,6 +38,9 @@ exports.readListOfUrls = function(callback){
 
 exports.isUrlInList = function(url, callback){
   var isInList = false;
+
+
+
     for ( var i = 0; i < array.length; i++ ) {
       if ( array[i] === url ) {
         isInList = true;
@@ -53,9 +56,11 @@ exports.isUrlInList = function(url, callback){
 };
   // returns true or false depending on whether passed in url is in sites.txt
 
-// Works!
+// working
 exports.addUrlToList = function(url, callback){
-  fs.appendFile(this.paths.list, url, function(err){
+  console.log(this.paths.list)
+  console.log(url)
+  fs.appendFile('./archives/sites.txt', url + "\n", function(err, data){
     if ( err ) console.log('failed to add ' + url + ' to sites.txt', error);
     else {
       console.log(url, 'was added to sites.txt');
@@ -63,16 +68,17 @@ exports.addUrlToList = function(url, callback){
       //Just call isURlarchived and download urls after
       //addurlInList in request handler
         //call download urls
-      callback(url);
+      callback(data);
     }
   });
 };
 
+// COMPLETE
 exports.isURLArchived = function(url, callback){
   //create variable isArchived, set to false
   // var isArchived = false;
   //access archives/sites
-  fs.readdir("./archives/sites/", function(err, files){
+  fs.readdir(this.paths.archivedSites, function(err, files){
     //iterate through array and see if targeturl is archived
     if(!files.length){
       console.log("No Files archived");
@@ -84,7 +90,7 @@ exports.isURLArchived = function(url, callback){
   // checks to see if the Url's HTML is archived ( this is different from just checking to see if the url string is stored in a file somewhere )
 };
 
-//assuming that archive is not filed
+// COMPLETE
 exports.downloadUrl = function(url, callback){
   //add a directory
   //add a file called index.html with contents=== body into that new directory
