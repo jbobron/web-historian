@@ -7,10 +7,16 @@ var fs = require('fs');
 // require more modules/folders here!
 
 exports.handleRequest = function (req, res) {
-  // console.log(req);
   var statusCode;
-
-  archive.isURLArchived("www.google.com")
+  archive.isURLArchived('www.yahoo.com', function(data){
+    if ( data === 'www.yahoo.com' ) {
+      // serve up my page
+      console.log('found it');
+    } else {
+      console.log('file not found');
+    }
+  });
+  // archive.downloadUrls("http://www.yahoo.com");
 
   if ( req.method === 'GET' ) {
     if ( req.url === '/' ) {

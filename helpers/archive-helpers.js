@@ -68,9 +68,9 @@ exports.addUrlToList = function(url, callback){
   });
 };
 
-exports.isURLArchived = function(url){
+exports.isURLArchived = function(url, callback){
   //create variable isArchived, set to false
-  var isArchived = false;
+  // var isArchived = false;
   //access archives/sites
   fs.readdir("./archives/sites/", function(err, files){
     //iterate through array and see if targeturl is archived
@@ -78,10 +78,9 @@ exports.isURLArchived = function(url){
       console.log("No Files archived");
     }
       for(var i = 0; i<files.length; i++){
-       if(url === files[i]){
-        isArchived = true;
-        //callback(isArchived)
-       }
+       // if(url === files[i]){
+        callback(files[i]);
+       // }
       }
   })
   // checks to see if the Url's HTML is archived ( this is different from just checking to see if the url string is stored in a file somewhere )
