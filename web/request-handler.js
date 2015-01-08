@@ -8,14 +8,25 @@ var fs = require('fs');
 
 exports.handleRequest = function (req, res) {
   var statusCode;
-  archive.isURLArchived('www.yahoo.com', function(data){
-    if ( data === 'www.yahoo.com' ) {
-      // serve up my page
-      console.log('found it');
-    } else {
-      console.log('file not found');
-    }
-  });
+
+  archive.downloadUrl("www.google.com", function(data){
+    // if( data ){
+      // console.log('data added')
+    // }else{
+      // console.log('data not added')
+    // }
+  })
+
+
+
+  // archive.isURLArchived('www.yahoo.com', function(data){
+  //   if ( data === 'www.yahoo.com' ) {
+  //     // serve up my page
+  //     console.log('found it');
+  //   } else {
+  //     console.log('file not found');
+  //   }
+  // });
   // archive.downloadUrls("http://www.yahoo.com");
 
   if ( req.method === 'GET' ) {

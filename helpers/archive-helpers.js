@@ -53,16 +53,16 @@ exports.isUrlInList = function(url, callback){
 };
   // returns true or false depending on whether passed in url is in sites.txt
 
-
+// Works!
 exports.addUrlToList = function(url, callback){
-  // adds Url to sites.txt
-  fs.appendFile('./archives/sites.txt', url, function(err){
+  fs.appendFile(this.paths.list, url, function(err){
     if ( err ) console.log('failed to add ' + url + ' to sites.txt', error);
     else {
       console.log(url, 'was added to sites.txt');
-      //if url is not archived  DONT DO THESE HERE, Just call isURlarchived and download urls after addurlInList in request handler
+      //if url is not archived  DONT DO THESE HERE,
+      //Just call isURlarchived and download urls after
+      //addurlInList in request handler
         //call download urls
-
       callback(url);
     }
   });
@@ -77,29 +77,46 @@ exports.isURLArchived = function(url, callback){
     if(!files.length){
       console.log("No Files archived");
     }
-      for(var i = 0; i<files.length; i++){
-       // if(url === files[i]){
-        callback(files[i]);
-       // }
-      }
+    for(var i = 0; i<files.length; i++){
+      callback(files[i]);
+    }
   })
   // checks to see if the Url's HTML is archived ( this is different from just checking to see if the url string is stored in a file somewhere )
 };
 
 //assuming that archive is not filed
-exports.downloadUrls = function(url){
-  request(url, function(error, response, body){
-    console.log(body);
-  })
+exports.downloadUrl = function(url, callback){
+  //add a directory
+  //add a file called index.html with contents=== body into that new directory
+  var context = this;
+  fs.mkdir(this.paths.archivedSites + "/" + url, function(err){
+    request("http://" + url, function(error, response, body){
+      console.log(body)
+      fs.writeFile(context.paths.archivedSites + "/" + url + '/index.html', body, function(err){
+        if (err) console.log('ERROR writing index.html for url: ' + url);
+        else console.log('SAVED index.html for url: ' + url );
+      });
+    });
+
+
+    // if(err){
+    //   console.log(err)
+    // }
+    // console.log("Directory " + context.paths.archivedSites + " created.")
+    // callback(context.paths.archivedSites)
+
+
+  });
+
   //create directory in archives/sites
     //dump body code into folder (use fs.mkdir)
-
-
   // I think this is a GET request to the servers specified in sites.txt
   // not sure how that data is handled, asssuming we utilize the fs module to add those sites HTML to our file system
 };
 
-
+exports.downloadUrls = function(url, callback){
+    //use download URL HERE
+}
 
 
 
