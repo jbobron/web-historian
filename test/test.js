@@ -31,7 +31,7 @@ describe("Node Server Request Listener Function", function() {
     waitForThen(
       function() { return res._ended; },
       function(){
-        console.log(res._data.toString()); // [debug]
+        // console.losg(res._data.toString()); // [debug]
         expect(res._responseCode).to.equal(200);
         expect(res._data.toString().match(/<input/)).to.be.ok; // the resulting html should have an input tag
         done();

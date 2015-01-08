@@ -8,7 +8,8 @@ var fs = require('fs');
 
 exports.handleRequest = function (req, res) {
   // console.log(req);
-  var statusCode
+  var statusCode;
+
   if ( req.method === 'GET' ) {
     if ( req.url === '/' ) {
       var sitePath = archive.paths.siteAssets + "/index.html";
@@ -20,10 +21,6 @@ exports.handleRequest = function (req, res) {
           res.end(data);
         }
       });
-      // we need to return archive.path.list + <html> or just html
-      // res.end(archive.paths.list + '<input>');
-      // [note] this is hacked just to pass the test....BRB
-
     }else if(req.url === '/www.google.com' ){
       statusCode=200;
       res.writeHead(statusCode, httpHelpers.headers);
@@ -31,7 +28,12 @@ exports.handleRequest = function (req, res) {
       res.end(archive.archivedSites + '/google/');
     }
   }else if(req.method === 'POST'){
-
+    console.log('in posttt');
+    statusCode = 302;
+    archive.addUrlToList(req.url, function(url){
+      console.log(url);
+    });
+    res.writeHead(statusCode, httpHelpers.headers);
 
   }
 
