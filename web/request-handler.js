@@ -9,7 +9,6 @@ var fs = require('fs');
 exports.handleRequest = function (req, res) {
   var statusCode;
 
-
   // archive.downloadUrl("www.google.com", function(data){
     // if( data ){
       // console.log('data added')
@@ -17,17 +16,21 @@ exports.handleRequest = function (req, res) {
       // console.log('data not added')
     // }
   // })
-  archive.addUrlToList("www.yahoo.com", function(err, data){
-    if(err) console.log("error")
-    console.log(data)
+  // archive.addUrlToList("www.yahoo.com", function(err, data){
+  //   if(err) console.log("error")
+  //   console.log(data)
 
-  })
-  archive.addUrlToList("www.google.com", function(err, data){
-    if(err) console.log("error")
-    console.log(data)
+  // })
+  // archive.addUrlToList("www.google.com", function(err, data){
+  //   if(err) console.log("error")
+  //   console.log(data)
 
-  })
-
+  // })
+  // archive.readListOfUrls(function(data){
+  //   archive.isUrlInList(data, 'example1.com', function(url, isInList){
+  //     console.log(url, "is in List equals: ", isInList)
+  //   });
+  // });
 
   // archive.isURLArchived('www.google.com', function(data){
   //   if ( data === 'www.google.com' ) {
@@ -58,9 +61,7 @@ exports.handleRequest = function (req, res) {
     }
   }else if(req.method === 'POST'){
     statusCode = 302;
-    console.log("REQ.url: ", req.url)
     archive.addUrlToList(req.url, function(url){
-      console.log(url);
       res.end(data)
     });
     //below is temporary

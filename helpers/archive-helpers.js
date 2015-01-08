@@ -10,7 +10,6 @@ var request = require('request');
  * customize it in any way you wish.
  */
 
-// don't understand this.....
 exports.paths = {
   'siteAssets' : path.join(__dirname, '../web/public'),
   'archivedSites' : path.join(__dirname, '../archives/sites'),
@@ -24,9 +23,7 @@ exports.initialize = function(pathsObj){
   });
 };
 
-// The following function names are provided to you to suggest how you might
-// modularize your code. Keep it clean!
-
+// COMPLETE
 exports.readListOfUrls = function(callback){
   // reads list of Urls from sites.txt
   var array;
@@ -36,27 +33,21 @@ exports.readListOfUrls = function(callback){
   });
 };
 
-exports.isUrlInList = function(url, callback){
+
+//COMPLETE
+exports.isUrlInList = function(array, url, callback){
   var isInList = false;
-
-
-
     for ( var i = 0; i < array.length; i++ ) {
       if ( array[i] === url ) {
         isInList = true;
-        break; // breaks out of for loop
+        break;
       }
     }
-    if(isInList){
-      callback();
-    } else{
-      console.log("File is not in list :( ");
-    }
-
+  console.log("Url is in List is: ", isInList);
+  callback(url, isInList);
 };
-  // returns true or false depending on whether passed in url is in sites.txt
 
-// working
+// COMPLETE
 exports.addUrlToList = function(url, callback){
   console.log(this.paths.list)
   console.log(url)
@@ -64,10 +55,6 @@ exports.addUrlToList = function(url, callback){
     if ( err ) console.log('failed to add ' + url + ' to sites.txt', error);
     else {
       console.log(url, 'was added to sites.txt');
-      //if url is not archived  DONT DO THESE HERE,
-      //Just call isURlarchived and download urls after
-      //addurlInList in request handler
-        //call download urls
       callback(data);
     }
   });
@@ -75,9 +62,6 @@ exports.addUrlToList = function(url, callback){
 
 // COMPLETE
 exports.isURLArchived = function(url, callback){
-  //create variable isArchived, set to false
-  // var isArchived = false;
-  //access archives/sites
   fs.readdir(this.paths.archivedSites, function(err, files){
     //iterate through array and see if targeturl is archived
     if(!files.length){
@@ -87,7 +71,6 @@ exports.isURLArchived = function(url, callback){
       callback(files[i]);
     }
   })
-  // checks to see if the Url's HTML is archived ( this is different from just checking to see if the url string is stored in a file somewhere )
 };
 
 // COMPLETE
@@ -103,21 +86,7 @@ exports.downloadUrl = function(url, callback){
         else console.log('SAVED index.html for url: ' + url );
       });
     });
-
-
-    // if(err){
-    //   console.log(err)
-    // }
-    // console.log("Directory " + context.paths.archivedSites + " created.")
-    // callback(context.paths.archivedSites)
-
-
   });
-
-  //create directory in archives/sites
-    //dump body code into folder (use fs.mkdir)
-  // I think this is a GET request to the servers specified in sites.txt
-  // not sure how that data is handled, asssuming we utilize the fs module to add those sites HTML to our file system
 };
 
 exports.downloadUrls = function(url, callback){
