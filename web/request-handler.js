@@ -8,25 +8,29 @@ var httpHelpers = require('./http-helpers.js');
 exports.handleRequest = function (req, res) {
   // console.log(req);
   var statusCode
-  if ( req.method === 'GET' ) {
-    statusCode = 200;
-    if ( req.url === '/' ) {
+  if ( req.url === '/' ) {
+    if ( req.method === 'GET' ) {
+      statusCode = 200;
       res.writeHead(statusCode, httpHelpers.headers);
       // we need to return archive.path.list + <html> or just html
       // res.end(archive.paths.list + '<input>');
       // [note] this is hacked just to pass the test....BRB
       res.end('<input>');
     }
+  }
     // console.log(req.url);
-    if ( req.url === '/www.google.com' ) {
-      // add google.com to sites.txt
-      //
-      res.writeHead(statusCode, httpHelpers.headers);
-
-      // we need to return the HTML that contains the string google
-      res.end(archive.archivedSites + '/google/');
-    }
+  else if ( req.url === '/www.google.com' ) {
+    // add google.com to sites.txt
+    statusCode=200;
+    res.writeHead(statusCode, httpHelpers.headers);
+    // we need to return the HTML that contains the string google
+    res.end(archive.archivedSites + '/google/');
   }
 
+  else {
+    statusCode = 404;
+    res.writeHead(statusCode, httpHelpers.headers);
+    res.end(JSON.stringify('not found'));
+  }
 
 };
