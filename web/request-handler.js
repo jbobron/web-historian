@@ -10,6 +10,7 @@ exports.handleRequest = function (req, res) {
   var statusCode
   if ( req.url === '/' ) {
     if ( req.method === 'GET' ) {
+      console.log("here 1")
       statusCode = 200;
       res.writeHead(statusCode, httpHelpers.headers);
       // we need to return archive.path.list + <html> or just html
@@ -21,6 +22,7 @@ exports.handleRequest = function (req, res) {
     // console.log(req.url);
   else if ( req.url === '/www.google.com' ) {
     // add google.com to sites.txt
+    // console.log("here 2")
     statusCode=200;
     res.writeHead(statusCode, httpHelpers.headers);
     // we need to return the HTML that contains the string google
@@ -29,6 +31,7 @@ exports.handleRequest = function (req, res) {
 
   else {
     statusCode = 404;
+    // console.log("here 3", statusCode)
     res.writeHead(statusCode, httpHelpers.headers);
     res.end(JSON.stringify('not found'));
   }

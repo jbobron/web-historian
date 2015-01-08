@@ -28,17 +28,35 @@ exports.initialize = function(pathsObj){
 
 exports.readListOfUrls = function(){
   // reads list of Urls from sites.txt
+  var array = data.toString().split('\n');
+  return array;
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(url){
+  var isInList = false;
+  fs.readFile(exports.paths.list, function(err, data){ // [refactor] is exports.paths.list the appropriate way to ref this, so that it works in another file?
+    var array = data.toString().split('\n'); // [refactor] utilize readListOfUrls
+    for ( var i = 0; i < array.length; i++ ) {
+      if ( array[i] === url ) {
+        isInList = true;
+        break; // breaks out of for loop
+      }
+    }
+    return isInList;
+  });
   // returns true or false depending on whether passed in url is in sites.txt
 };
 
-exports.addUrlToList = function(){
+exports.addUrlToList = function(url){
   // adds Url to sites.txt
+  fs.appendFile('./archives/sites.txt', url, function(err){
+    if ( err ) console.log('failed to add ' + url + ' to sites.txt', error);
+    else console.log(url, 'was added to sites.txt');
+  });
 };
 
 exports.isURLArchived = function(){
+
   // checks to see if the Url's HTML is archived ( this is different from just checking to see if the url string is stored in a file somewhere )
 };
 
@@ -46,3 +64,13 @@ exports.downloadUrls = function(){
   // I think this is a GET request to the servers specified in sites.txt
   // not sure how that data is handled, asssuming we utilize the fs module to add those sites HTML to our file system
 };
+
+
+
+
+
+
+
+
+
+
