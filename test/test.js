@@ -75,10 +75,9 @@ describe("Node Server Request Listener Function", function() {
     waitForThen(
       function() { return res._ended; },
       function(){
-        console.log("HELLLOOO")
         var fileContents = fs.readFileSync(archive.paths.list, 'utf8');
         expect(res._responseCode).to.equal(302);
-        console.log("fileContents: ", fileContents)
+        // console.log("fileContents: ", fileContents)
         expect(fileContents).to.equal(url + "\n");
         done();
     });

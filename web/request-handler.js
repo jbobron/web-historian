@@ -9,9 +9,8 @@ var fs = require('fs');
 exports.handleRequest = function (req, res) {
   // console.log(req);
   var statusCode;
-  archives.readListOfUrls(function(url){
-    console.log(url)
-  })
+
+  archive.isURLArchived("www.google.com")
 
   if ( req.method === 'GET' ) {
     if ( req.url === '/' ) {
@@ -34,8 +33,6 @@ exports.handleRequest = function (req, res) {
     statusCode = 302;
     console.log("REQ.url: ", req.url)
     archive.addUrlToList(req.url, function(url){
-
-      res.writeHead(statusCode, httpHelpers.headers);
       console.log(url);
       res.end(data)
     });

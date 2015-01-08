@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var request = require('request');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -35,7 +36,7 @@ exports.readListOfUrls = function(callback){
   });
 };
 
-exports.isUrlInList = function(array, callback){
+exports.isUrlInList = function(url, callback){
   var isInList = false;
     for ( var i = 0; i < array.length; i++ ) {
       if ( array[i] === url ) {
@@ -59,20 +60,61 @@ exports.addUrlToList = function(url, callback){
     if ( err ) console.log('failed to add ' + url + ' to sites.txt', error);
     else {
       console.log(url, 'was added to sites.txt');
+      //if url is not archived  DONT DO THESE HERE, Just call isURlarchived and download urls after addurlInList in request handler
+        //call download urls
+
       callback(url);
     }
   });
 };
 
-exports.isURLArchived = function(){
-
+exports.isURLArchived = function(url){
+  //create variable isArchived, set to false
+  var isArchived = false;
+  //access archives/sites
+  fs.readdir("./archives/sites/", function(err, files){
+    //iterate through array and see if targeturl is archived
+    if(!files.length){
+      console.log("No Files archived");
+    }
+      for(var i = 0; i<files.length; i++){
+       if(url === files[i]){
+        isArchived = true;
+        //callback(isArchived)
+       }
+      }
+  })
   // checks to see if the Url's HTML is archived ( this is different from just checking to see if the url string is stored in a file somewhere )
 };
 
-exports.downloadUrls = function(){
+//assuming that archive is not filed
+exports.downloadUrls = function(url){
+  request(url, function(error, response, body){
+    console.log(body);
+  })
+  //create directory in archives/sites
+    //dump body code into folder (use fs.mkdir)
+
+
   // I think this is a GET request to the servers specified in sites.txt
   // not sure how that data is handled, asssuming we utilize the fs module to add those sites HTML to our file system
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
