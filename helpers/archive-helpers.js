@@ -35,20 +35,23 @@ exports.readListOfUrls = function(callback){
   });
 };
 
-exports.isUrlInList = function(url){
+exports.isUrlInList = function(array, callback){
   var isInList = false;
-  fs.readFile(exports.paths.list, function(err, data){ // [refactor] is exports.paths.list the appropriate way to ref this, so that it works in another file?
-    var array = data.toString().split('\n'); // [refactor] utilize readListOfUrls
     for ( var i = 0; i < array.length; i++ ) {
       if ( array[i] === url ) {
         isInList = true;
         break; // breaks out of for loop
       }
     }
-    return isInList;
-  });
-  // returns true or false depending on whether passed in url is in sites.txt
+    if(isInList){
+      callback();
+    } else{
+      console.log("File is not in list :( ");
+    }
+
 };
+  // returns true or false depending on whether passed in url is in sites.txt
+
 
 exports.addUrlToList = function(url, callback){
   // adds Url to sites.txt

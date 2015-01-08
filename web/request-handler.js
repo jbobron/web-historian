@@ -9,6 +9,9 @@ var fs = require('fs');
 exports.handleRequest = function (req, res) {
   // console.log(req);
   var statusCode;
+  archives.readListOfUrls(function(url){
+    console.log(url)
+  })
 
   if ( req.method === 'GET' ) {
     if ( req.url === '/' ) {
@@ -28,13 +31,15 @@ exports.handleRequest = function (req, res) {
       res.end(archive.archivedSites + '/google/');
     }
   }else if(req.method === 'POST'){
-    console.log('in posttt');
     statusCode = 302;
+    console.log("REQ.url: ", req.url)
     archive.addUrlToList(req.url, function(url){
-      console.log(url);
-    });
-    res.writeHead(statusCode, httpHelpers.headers);
 
+      res.writeHead(statusCode, httpHelpers.headers);
+      console.log(url);
+      res.end(data)
+    });
+    //below is temporary
   }
 
 

@@ -72,12 +72,13 @@ describe("Node Server Request Listener Function", function() {
     // Reset the test file and process request
     fs.writeFileSync(archive.paths.list, "");
     handler.handleRequest(req, res);
-
     waitForThen(
       function() { return res._ended; },
       function(){
+        console.log("HELLLOOO")
         var fileContents = fs.readFileSync(archive.paths.list, 'utf8');
         expect(res._responseCode).to.equal(302);
+        console.log("fileContents: ", fileContents)
         expect(fileContents).to.equal(url + "\n");
         done();
     });
