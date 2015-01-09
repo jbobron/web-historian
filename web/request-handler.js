@@ -15,11 +15,22 @@ var actions = {
     } else {
       parts = "/" + parts; // will change archive.siteAsstes or something
     }
-    httpHelpers.serveAssets(response, parts)
+    httpHelpers.serveAssets(response, parts);
   },
 
   "POST": function(request, response) {
+    httpHelpers.collectData(request, function(url){
+      var url = url.split('=')[1]
     // extract url data from request
+      archive.readListOfUrls(function(data){
+        archive.isUrlInList(data, url, function(url, isInList){
+          console.log(url, "is in List equals: ", isInList)
+          archive.downloadUrl(url, function(data){
+
+          })
+        });
+      });
+    });
     // check if the URL is in sites.txt
       // if sites is in sites.txt
         // serve index.html for that site to the client
