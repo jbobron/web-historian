@@ -14,10 +14,10 @@ exports.headers = headers = {
 // serveAssets will be called every time we return a static file...(the web app and any other index.html)
 exports.serveAssets = function(res, asset, callback) {
   // asset --> req.url
-  fs.readFile(archive.paths.siteAssets +  asset, function(err, data){
+  fs.readFile(archive.paths.siteAssets + "/" + asset, function(err, data){
     if (err) {
       // file doesn't exist in public
-      fs.readFile(archive.paths.archivedSites + asset + '/index.html', function(err, data){
+      fs.readFile(archive.paths.archivedSites +"/"+ asset , function(err, data){
         // file doesn't exist in any location
         if (err) {
           callback ? callback() : exports.send404(res);

@@ -10,12 +10,17 @@ var fs = require('fs');
 var actions = {
   "GET": function(request, response) {
     var parts = request.url
+    console.log(parts)
     if ( parts === '/' ) {
       parts = '/index.html';
     } else {
-      parts = "/" + parts; // will change archive.siteAsstes or something
+      parts = parts.slice(1);
+      console.log(parts) // will change archive.siteAsstes or something
     }
-    httpHelpers.serveAssets(response, parts);
+    httpHelpers.serveAssets(response, parts, function(){
+      //serve loading page
+      httpHelpers.sendRedirect(response, '/loading.html')
+    });
   },
 
   "POST": function(request, response) {
@@ -27,6 +32,7 @@ var actions = {
           console.log(url, "is in List equals: ", isInList)
           archive.downloadUrl(url, function(data){
 
+            httpHelpers.serveAssets(response, url)
           })
         });
       });
